@@ -3,6 +3,7 @@ import { getAllReservations } from "../../utils/ReservationStore";
 import CustomButton from "../items/CustomButton";
 import Content from "../templates/Content";
 import ReservationRegistrationModal from "../modals/ReservationRegistrationModal";
+import ReservationItem from "../items/ReservationItem";
 
 const ReservationPage = () => {
   const [openRegistration, setOpenRegistration] = useState(false);
@@ -45,6 +46,7 @@ const ReservationPage = () => {
         <div className="flex gap-10 overflow-auto w-full">
           {reservations.map((reservation, index) => (
             <ReservationItem
+              key={index}
               reservation={reservation}
               onClick={() => {
                 setSelectedReservation(reservation);

@@ -8,6 +8,7 @@ import {
   FormControl,
   IconButton,
   InputLabel,
+  MenuItem,
   Select,
   TextField,
 } from "@mui/material";
@@ -16,10 +17,12 @@ import {
   deleteReservation,
   postReservation,
 } from "../../utils/ReservationStore";
+import { getAllSchedules } from "../../utils/ScheduleStore";
 
 const ReservationRegistrationModal = ({ show, close, reservation }) => {
   const [reservationJson, setReservationJson] = useState({});
   const [loading, setLoading] = useState(false);
+  const [schedules, setSchedules] = useState([]);
 
   useEffect(() => {
     if (reservation) {
@@ -27,7 +30,19 @@ const ReservationRegistrationModal = ({ show, close, reservation }) => {
     } else {
       setReservationJson({});
     }
+    getSchedules();
   }, [show]);
+
+  const getSchedules = async () => {
+    try {
+      const response = await getAllSchedules();
+      if (response) {
+        setSchedules(response);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClose = () => {
     setReservationJson({});
@@ -110,7 +125,19 @@ const ReservationRegistrationModal = ({ show, close, reservation }) => {
               name="schedule"
               value={reservationJson.schedule}
               onChange={handleChange}
-            ></Select>
+            >
+              {schedules?.map((schedule, index) => (
+                <MenuItem
+                  key={index}
+                  value={schedule}
+                  className="flex flex-col"
+                >
+                  <b>Fecha: {schedule.timeStart.split("T")[0]}</b>
+                  {schedule.timeStart.split("T")[1].split(".")[0]} -{" "}
+                  {schedule.timeEnd.split("T")[1].split(".")[0]}
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
         </form>
       </DialogContent>

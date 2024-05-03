@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import { getMovieById } from "../../utils/MovieStore";
 
 const ScheduleItem = ({ schedule, onClick }) => {
-  const [schedules, setSchedules] = useState({});
+  const [movie, setMovie] = useState({});
   const [room, setRoom] = useState({});
 
   useEffect(() => {
     getMovie();
-    getAllRooms();
+    // getAllRooms();
   }, []);
 
   const getMovie = async () => {
+    console.log(schedule);
     try {
+      if (schedule.movieId === undefined) return;
       const response = await getMovieById(schedule.movieId);
       if (response) {
-        setSchedules(response);
+        setMovie(response);
       }
     } catch (error) {
       console.log(error);
@@ -27,14 +29,16 @@ const ScheduleItem = ({ schedule, onClick }) => {
       onClick={onClick}
     >
       <img
-        src={schedules.image}
-        alt={schedules.title}
+        src={schedule.movie.image}
+        alt={schedule.movie.title}
         className="h-60 rounded-lg"
       />
       <div className="flex flex-col gap-3 p-4">
-        <h2 className="font-bold text-wrap">{schedules.title}</h2>
+        <h2 className="font-bold text-wrap">{schedule.movie.title}</h2>
+        <p>Duración: {schedule.movie.duration}</p>
         <p className="text-base">
-          {schedule.timeStart.split("T")[1]}-{schedule.timeEnd.split("T")[1]}
+          {schedule.timeStart.split("T")[1].split(".")[0]} -
+          {schedule.timeEnd.split("T")[1].split(".")[0]}
         </p>
       </div>
     </div>
