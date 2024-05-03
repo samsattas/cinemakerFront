@@ -1,8 +1,12 @@
 import { useState } from "react";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/templates/Layout";
+import MoviesPage from "./components/pages/MoviesPage";
+import PageContainer from "./components/templates/PageContainer";
+import ReservationPage from "./components/pages/ReservationsPage";
+import RoomsPage from "./components/pages/RoomsPage";
+import SchedulesPage from "./components/pages/SchedulesPage";
 import { MyContext } from "./utils/MyContext";
 
 function App() {
@@ -20,10 +24,11 @@ function App() {
               </PageContainer>
             }
           >
-            {/* <Route path="" element={<Home />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="partners" element={<Partners />} />
-              <Route path='*' element={<NotFound />} /> */}
+            <Route path="movies" element={<MoviesPage />} />
+            <Route path="reservations" element={<ReservationPage />} />
+            <Route path="rooms" element={<RoomsPage />} />
+            <Route path="schedules" element={<SchedulesPage />} />
+            {/* <Route path='*' element={<NotFound />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>
