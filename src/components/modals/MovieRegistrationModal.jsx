@@ -1,4 +1,5 @@
 import { Clear } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import {
   Dialog,
   DialogActions,
@@ -9,11 +10,9 @@ import {
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import CustomButton from "../items/CustomButton";
-import { useEffect, useState } from "react";
-import { LoadingButton } from "@mui/lab";
-import { deleteMovie, postMovie } from "../../utils/MovieStore";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { deleteMovie, postMovie } from "../../utils/MovieStore";
 
 const MovieResgistrationModal = ({ show, close, movie }) => {
   const [movieJson, setMovieJson] = useState({});
@@ -63,9 +62,7 @@ const MovieResgistrationModal = ({ show, close, movie }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const response = await deleteMovie(movieJson.id).then(() =>
-        handleClose()
-      );
+      await deleteMovie(movieJson.id).then(() => handleClose());
     } catch (error) {
       console.log(error);
     } finally {

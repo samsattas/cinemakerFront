@@ -20,3 +20,9 @@ export const deleteMovie = async (id) => {
   const data = await response.data;
   return data;
 };
+
+export const getMovieById = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`);
+  const data = await response.data;
+  return data;
+};
