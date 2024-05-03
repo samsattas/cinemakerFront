@@ -37,7 +37,6 @@ const MovieResgistrationModal = ({ show, close, movie }) => {
   };
 
   const handleSave = async () => {
-    console.log(releaseDate);
     let newReleaseDate;
     if (movie) {
       newReleaseDate = movie.releaseDate;
